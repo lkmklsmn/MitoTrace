@@ -1,3 +1,7 @@
+# testing the github platform
+
+# set the working directory
+
 setwd("/Users/mwang14/Documents/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data")
 
 # Process the GBM scRNA-seq .rds file
@@ -30,6 +34,7 @@ head(ssr_list)
 dim(ssr_list)
 colnames(af3)
 
+# rename the matrix
 length(colnames(af3))
 match(colnames(af3), ssr_list$V1)
 ssr_list$V3 <- paste(ssr_list$V1, ssr_list$V2, sep = "_")
