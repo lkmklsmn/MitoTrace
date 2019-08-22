@@ -1,3 +1,32 @@
+#' @title  MitoTrace - an R package for the investigation of mitochondrial heteroplasmies.
+#' 
+#' @description  The MitoTrace function calculates mitochondrial heteroplasmies in (single-cell) RNA sequencing data based on the reads pileups of the mitochondrial genome.
+#' 
+#' @usage MitoTrace(bam_list = bams, ref_fasta = fasta_loc, name = "MT", max_depth = "", 
+#'        min_base_quality = "", min_mapq = "", min_nucleotide_depth = "", min_minor_allele_depth = "")
+#' 
+#' @param bams_list Vector of absolute path(s) pointing to BAM alignment file(s).
+#' @param ref_fasta Absolute path to the mitochondrial reference genome in FASTA format.
+#' @param name Name of mitochondrial genome as specified in the BAM files.
+#' @param max_depth The maximum depth of reads considered at any position.
+#' @param min_base_quality The minimum read base quality below which the base is ignored when summarizing pileup information.
+#' @param min_mapq The minimum mapping quality below which the entire reads is ignored.
+#' @param min_nucleotide_depth integer(1); minimum count of each nucleotide at a given position required for said nucleotide to appear in the result.
+#' @param min_minor_allele_depth integer(1);  minimum count of all nucleotides other than the major allele at agiven position.
+#' 
+#' @details result <- MitoTrace(bam_list = bams, ref_fasta = fasta_loc, chr_name = "MT", max_depth = "1e6", min_base_quality=25, min_mapq=30, min_nucleotide_depth=0, min_minor_allele_depth=0)
+#' @details See packageDescription("MitoTrace") for more details.
+#' 
+#' @note This package could not only apply for the analysis of single-cell data but also for bulk seuqencing data.
+#' 
+#' @return Read counts matrix and coverage matrix.
+#' 
+#' @author Mingqiang WANG <Mingqiang.Wang@uth.tmc.edu>, Simon Lukas <Lukas.Simon@uth.tmc.edu>
+#' 
+#' @references The current source code of MitoTrace is from https://github.com/lkmklsmn/MitoTrace.
+
+
+# define the MitoTrace main function
 mitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
                       max_depth= 1e6, min_base_quality=25, min_mapq=30, min_nucleotide_depth=0, min_minor_allele_depth=0){
   require(Rsamtools)
@@ -97,3 +126,4 @@ mitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
   
   return(list(read_counts = counts, coverage = coverage))
 }
+
