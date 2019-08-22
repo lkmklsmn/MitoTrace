@@ -1,0 +1,12 @@
+Package: MitoTrace
+Type: Package
+Title: A computational framework for investigating mitochondrial heteroplasmies in RNA sequencing data
+Version: 1.0.0
+Date: 2019-08-13
+Author: Mingqiang WANG, Simon Lukas
+Maintainer: Mingqiang WANG <Mingqiang.Wang@uth.tmc.edu>, Simon Lukas <Lukas.Simon@uth.tmc.edu>
+Depends: R (>= 3.6.0), seqinr (>= 3.4-5), Matrix (>= 1.2-17), Rsamtools (>= 2.0.0)
+Description: A user-friendly R package to enable analysis of mitochondrial heteroplasmies and demonstrate the validity and value of our computational framework in a number of exemplary analyses.
+License: GPL (>= 2)
+LazyData: true
+RoxygenNote: 6.1.1
