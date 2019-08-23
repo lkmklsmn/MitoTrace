@@ -31,7 +31,7 @@ install_github("lkmklsmn/MitoTrace")
 ## Example
 
 ##### `MitoTrace` enables identification of germline variants
-![GitHub Logo](https://drive.google.com/open?id=1eM5XRmN6dbYj-Lm8LRgY5fVpqUGOLhgE)
+![GitHub Logo](https://www.google.com.hk/search?q=mitochondrial&tbm=isch&source=lnms&sa=X&ved=0ahUKEwjNt96x9JnkAhUS2qwKHQXcAFsQ_AUICygC&biw=1920&bih=902&dpr=1#imgrc=-bcJUngKv-Y2CM:)
 Format: ![Alt Text](url)
 
 ##### `MitoTrace` enables identification of somatic variants
