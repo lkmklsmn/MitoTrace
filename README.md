@@ -34,12 +34,10 @@ install_github("lkmklsmn/MitoTrace")
 ![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/R1.png)
 
 ##### `MitoTrace` enables identification of somatic variants
-
-
+![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/somatic.png)
 
 ##### `MitoTrace` detects increased mutational burden
-
-![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/Young_old_barplot_v2.pdf)
+![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/barplot.png)
 
 ## Citation
 
