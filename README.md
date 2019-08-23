@@ -31,6 +31,8 @@ install_github("lkmklsmn/MitoTrace")
 ## Example
 
 ##### `MitoTrace` enables identification of germline variants
+![GitHub Logo](C:\Users\mwang14\Documents\01_Zhao\12_Develop_Mitogenotyping_Tools\02_GBM_data\rds_all_cell\R1)
+Format: ![Alt Text](url)
 
 ##### `MitoTrace` enables identification of somatic variants
 
@@ -45,6 +47,8 @@ install_github("lkmklsmn/MitoTrace")
 
 ## Reference
 1.	Ludwig, L.S., et al., Lineage Tracing in Humans Enabled by Mitochondrial Mutations and Single-Cell Genomics. Cell, 2019. 176(6): p. 1325-1339 e22.
+2.	Darmanis, S., et al., Single-Cell RNA-Seq Analysis of Infiltrating Neoplastic Cells at the Migrating Front of Human Glioblastoma. Cell Rep, 2017. 21(5): p. 1399-1410.
+3.	Angelidis, I., et al., An atlas of the aging lung mapped by single cell transcriptomics and deep tissue proteomics. Nat Commun, 2019. 10(1): p. 963.
 
 ### Note
 Our opimized, efficient and user-friendly R package `MitoTrace` is currently under development.
