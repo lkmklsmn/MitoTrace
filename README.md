@@ -32,7 +32,7 @@ install_github("lkmklsmn/MitoTrace")
 
 ##### `MitoTrace` enables identification of germline variants
 ![GitHub Logo](http://img.blog.csdn.net/20161028230559575)
-Format: ![Alt Text](url)
+Format: ![Alt Text](MitoTrace enables identification of germline variants)
 
 ##### `MitoTrace` enables identification of somatic variants
 
