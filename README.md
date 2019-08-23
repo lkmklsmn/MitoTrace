@@ -31,7 +31,7 @@ install_github("lkmklsmn/MitoTrace")
 ## Example
 
 ##### `MitoTrace` enables identification of germline variants
-![GitHub Logo](C:\Users\mwang14\Documents\01_Zhao\12_Develop_Mitogenotyping_Tools\02_GBM_data\rds_all_cell\R1)
+![GitHub Logo](https://drive.google.com/open?id=1eM5XRmN6dbYj-Lm8LRgY5fVpqUGOLhgE)
 Format: ![Alt Text](url)
 
 ##### `MitoTrace` enables identification of somatic variants
