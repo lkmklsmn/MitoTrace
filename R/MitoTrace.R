@@ -27,7 +27,7 @@
 
 
 # define the MitoTrace main function
-mitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
+MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
                       max_depth= 1e6, min_base_quality=25, min_mapq=30, min_nucleotide_depth=0, min_minor_allele_depth=0){
   require(Rsamtools)
   require(Matrix)
