@@ -39,7 +39,7 @@ MitoTrace <- function(bam_list = bams,
   require(Matrix)
   require(seqinr)
   
-  if(length(bams) == 1) bams <- rep(bams, 2)
+  if(length(bam_list) == 1) bam_list <- rep(bam_list, 2)
   
   bases <- c("A", "C", "G", "T")
   
@@ -131,7 +131,7 @@ MitoTrace <- function(bam_list = bams,
   counts <- as(counts, "sparseMatrix")
   coverage <- as(coverage, "sparseMatrix")
   
-  if(length(bams) == 1){
+  if(length(bam_list) == 1){
     counts <- counts[,1]
     coverage <- coverage[,1]
   }
