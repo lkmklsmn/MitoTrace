@@ -27,8 +27,14 @@
 
 
 # define the MitoTrace main function
-MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
-                      max_depth= 1e6, min_base_quality=25, min_mapq=30, min_nucleotide_depth=0, min_minor_allele_depth=0){
+MitoTrace <- function(bam_list = bams, 
+                      fasta = fasta_loc, 
+                      chr_name = "MT",
+                      max_depth= 1e6, 
+                      min_base_quality= 25, 
+                      min_mapq = 30, 
+                      min_nucleotide_depth = 0, 
+                      min_minor_allele_depth = 0){
   require(Rsamtools)
   require(Matrix)
   require(seqinr)
@@ -54,12 +60,12 @@ MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
     
     pileup_bam <- pileup(x,
                          scanBamParam=ScanBamParam(which=which),
-                         pileupParam=PileupParam(distinguish_strands= FALSE, 
-                                                 max_depth= max_depth, 
-                                                 min_base_quality=min_base_quality, 
-                                                 min_mapq=min_mapq, 
-                                                 min_nucleotide_depth=min_nucleotide_depth, 
-                                                 min_minor_allele_depth=min_minor_allele_depth
+                         pileupParam=PileupParam(distinguish_strands = FALSE, 
+                                                 max_depth = max_depth, 
+                                                 min_base_quality = min_base_quality, 
+                                                 min_mapq = min_mapq, 
+                                                 min_nucleotide_depth = min_nucleotide_depth, 
+                                                 min_minor_allele_depth = min_minor_allele_depth
                          ))
     bases <- c("A", "T", "C", "G")
     base_counts <- lapply(bases, function(base){
@@ -107,14 +113,13 @@ MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
   # Merge into one table and order
   allpos <- unique(unlist(lapply(res_counts2, rownames)))
   pos_tmp <- allpos
-  subs <- c("A>C", "A>G", "A>T", "C>A", "C>G", "C>T", "G>A", "G>C", "G>T", "T>A", "T>C", "T>G")
-  lapply(subs, function(x) pos_tmp <<- gsub(x, "", fixed = T, pos_tmp))
+  pos_tmp <- unlist(lapply(pos_tmp, function(x) substr(x, 1, nchar(x) - 3)))
   pos_tmp <- as.numeric(pos_tmp)
   allpos <- allpos[order(pos_tmp)]
   matr <- matrix(0, length(allpos), ncol(res_counts2[["A"]]))
   rownames(matr) <- allpos
   colnames(matr) <- colnames(res_counts2[["A"]])
-  lapply(res_counts, function(x){
+  lapply(res_counts2, function(x){
     ok <- intersect(rownames(matr), rownames(x))
     matr[ok,] <<- data.matrix(x[ok,])
   })
@@ -126,4 +131,3 @@ MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
   
   return(list(read_counts = counts, coverage = coverage))
 }
-
