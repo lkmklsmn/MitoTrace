@@ -142,7 +142,7 @@ MitoTrace <- function(bam_list = bams,
 }
 
 # define the MitoTrace plot coverage depth function
-MitoPlot <- function(mae = mae_res, species = "human", mt_ann = mt_ann){
+MitoDepth <- function(mae = mae_res, species = "human", mt_ann = mt_ann){
 
   # set the gene label location
     if(species == "human"){
