@@ -53,8 +53,6 @@ MitoTrace <- function(bam_list = bams,
     base = toupper(unname(reffasta)[[1]])[1:maxpos]
   )
   
-  which <- GRanges(seqnames = chr_name, ranges = IRanges(1, maxpos))
-  
   # Define list of BAM files
   bam_name_list_array <- BamFileList(bam_list)
   
@@ -62,8 +60,9 @@ MitoTrace <- function(bam_list = bams,
   total_mpileups <- lapply(bam_name_list_array, function(x){
     
     pileup_bam <- pileup(x,
-                         scanBamParam=ScanBamParam(which=which),
-                         pileupParam=PileupParam(distinguish_strands = FALSE, 
+                         scanBamParam = ScanBamParam(which = GRanges(seqnames = chr_name, 
+                                                                   ranges = IRanges(1, maxpos))),
+                         pileupParam = PileupParam(distinguish_strands = FALSE, 
                                                  max_depth = max_depth, 
                                                  min_base_quality = min_base_quality, 
                                                  min_mapq = min_mapq, 
@@ -141,3 +140,4 @@ MitoTrace <- function(bam_list = bams,
     
   return(list(read_counts = counts, coverage = coverage))
 }
+
