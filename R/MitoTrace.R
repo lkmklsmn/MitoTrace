@@ -39,6 +39,8 @@ MitoTrace <- function(bam_list = bams,
   require(Matrix)
   require(seqinr)
   
+  if(length(bams) == 1) bams <- rep(bams, 2)
+  
   bases <- c("A", "C", "G", "T")
   
   # Load in reference FASTA 
@@ -129,5 +131,10 @@ MitoTrace <- function(bam_list = bams,
   counts <- as(counts, "sparseMatrix")
   coverage <- as(coverage, "sparseMatrix")
   
+  if(length(bams) == 1){
+    counts <- counts[,1]
+    coverage <- coverage[,1]
+  }
+    
   return(list(read_counts = counts, coverage = coverage))
 }
