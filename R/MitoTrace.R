@@ -141,3 +141,48 @@ MitoTrace <- function(bam_list = bams,
   return(list(read_counts = counts, coverage = coverage))
 }
 
+# define the MitoTrace plot coverage depth function
+MitoPlot <- function(mae = mae_res, species = "human", mt_ann = mt_ann){
+
+  # set the gene label location
+    if(species == "human"){
+    location_human <- c(288.55, 577, 1124.55, 1602, 2450.05, 3230, 3784.55, 
+                3900, 4300, 4700, 4990.55, 5150, 5550, 5950, 6350, 6750, 
+                7150.55, 7300, 7718, 7927.55, 8295, 8469.05, 8867.05, 9598.55,
+                9991, 10231.55, 10405, 10618.05, 11448.55, 11750, 12200, 12650, 
+                13242.55, 14411.05, 14674, 15317.05, 15700, 16200, 16584.55)
+    }
+  
+    # set color
+    require("RColorBrewer")
+    col= c(brewer.pal(n = 12, name = "Set3"), brewer.pal(n = 11, name = "Spectral"), brewer.pal(n = 9, name = "Set1"), brewer.pal(n = 8, name = "Accent"))
+
+    # plot the coverave depth # single sample
+    ymax <- max(log(mae[[2]][,1]))
+    plot(row.names(mae[[2]]), log(mae[[2]][,1]), 
+         type = "l", 
+         col="brown1", 
+         xlab="MT genome postion", 
+         ylab="log2(Coverage depth)",
+         main="scRNA-seq coverage depth cross MT genome", 
+         ylim=c(-5,ymax))
+    
+    # plot the MT gene bar 
+    for (i in 1:39) {
+      if(grepl("TR", mt_ann$gene[i])){
+        rect(mt_ann[i,2], -2.5, mt_ann[i,3], -1, col=col[i], border = "white")
+        text(location[i], -0.5, mt_ann$gene[i], cex = 0.9)
+      }
+      else if(grepl("RN", mt_ann$gene[i])){
+        rect(mt_ann[i,2], -2.5, mt_ann[i,3], -1, col=col[i], border = "white")
+        text(location[i], -0.5, mt_ann$gene[i], cex = 0.9)
+      }
+      else{
+        rect(mt_ann[i,2], -4, mt_ann[i,3], -2.5, col=col[i], border = "white")
+        text(location[i], -4.5, mt_ann$gene[i], cex = 0.9)
+      }
+    }
+    
+  }
+
+
