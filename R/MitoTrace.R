@@ -39,7 +39,13 @@ MitoTrace <- function(bam_list = bams,
   require(Matrix)
   require(seqinr)
   
-  if(length(bam_list) == 1) singlefile <- T
+  if(length(bam_list) == 1) {
+    singlefile <- T
+    }
+  else{ 
+    singlefile=F
+    }
+  
   if(singlefile) bam_list <- rep(bam_list, 2)
   
   bases <- c("A", "C", "G", "T")
@@ -140,6 +146,9 @@ MitoTrace <- function(bam_list = bams,
     
   return(list(read_counts = counts, coverage = coverage))
 }
+
+
+
 
 # define the MitoTrace plot coverage depth function
 MitoDepth <- function(mae = mae_res, species = "human", mt_ann = mt_ann){
