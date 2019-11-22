@@ -68,16 +68,13 @@ MitoTrace <- function(bam_list = bams,
     base = toupper(unname(reffasta)[[1]])[1:maxpos]
   )
   
-<<<<<<< HEAD
   which <- GRanges(seqnames = chr_name, ranges = IRanges(1, maxpos))
   
   if(length(bam_list) == 1) combinedBam <- TRUE
   if(length(bam_list) > 1) combinedBam <- FALSE
-=======
   # Define list of BAM files
   bam_name_list_array <- BamFileList(bam_list)
->>>>>>> 42c5620ab06ad4237ca9c86467aab2e1b541f3ae
-  
+
   if(combinedBam){
     print("Extracting barcodes from single BAM file and running pileup for each barcode separately")
     
@@ -85,8 +82,7 @@ MitoTrace <- function(bam_list = bams,
     barcodes <- scanBam(bam, param = params)
     
     good_barcodes <- names(which(table(barcodes[[1]][[1]][[1]]) > 1000))
-    
-<<<<<<< HEAD
+
     # Run pileup command
     total_mpileups <- lapply(good_barcodes, function(x){
       
@@ -111,22 +107,6 @@ MitoTrace <- function(bam_list = bams,
       names(base_counts) <- bases
       base_counts
       
-=======
-    pileup_bam <- pileup(x,
-                         scanBamParam = ScanBamParam(which = GRanges(seqnames = chr_name, 
-                                                                   ranges = IRanges(1, maxpos))),
-                         pileupParam = PileupParam(distinguish_strands = FALSE, 
-                                                 max_depth = max_depth, 
-                                                 min_base_quality = min_base_quality, 
-                                                 min_mapq = min_mapq, 
-                                                 min_nucleotide_depth = min_nucleotide_depth, 
-                                                 min_minor_allele_depth = min_minor_allele_depth
-                         ))
-    bases <- c("A", "T", "C", "G")
-    base_counts <- lapply(bases, function(base){
-      mutation <- subset(pileup_bam, nucleotide == base)
-      data.frame(mutation$pos, mutation$count)
->>>>>>> 42c5620ab06ad4237ca9c86467aab2e1b541f3ae
     })
     
     names(total_mpileups) <- good_barcodes
