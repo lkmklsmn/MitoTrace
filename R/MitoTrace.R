@@ -36,11 +36,26 @@ checkSequenceNames <- function(bam_list){
 }
 
 # define the MitoTrace main function
-MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
-                      max_depth= 1e6, min_base_quality=25, min_mapq=30, min_nucleotide_depth=0, min_minor_allele_depth=0){
+MitoTrace <- function(bam_list = bams, 
+                      fasta = fasta_loc, 
+                      chr_name = "MT",
+                      max_depth= 1e6, 
+                      min_base_quality= 25, 
+                      min_mapq = 30, 
+                      min_nucleotide_depth = 0, 
+                      min_minor_allele_depth = 0){
   require(Rsamtools)
   require(Matrix)
   require(seqinr)
+  
+  if(length(bam_list) == 1) {
+    singlefile <- T
+    }
+  else{ 
+    singlefile=F
+    }
+  
+  if(singlefile) bam_list <- rep(bam_list, 2)
   
   bases <- c("A", "C", "G", "T")
   
@@ -53,10 +68,15 @@ MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
     base = toupper(unname(reffasta)[[1]])[1:maxpos]
   )
   
+<<<<<<< HEAD
   which <- GRanges(seqnames = chr_name, ranges = IRanges(1, maxpos))
   
   if(length(bam_list) == 1) combinedBam <- TRUE
   if(length(bam_list) > 1) combinedBam <- FALSE
+=======
+  # Define list of BAM files
+  bam_name_list_array <- BamFileList(bam_list)
+>>>>>>> 42c5620ab06ad4237ca9c86467aab2e1b541f3ae
   
   if(combinedBam){
     print("Extracting barcodes from single BAM file and running pileup for each barcode separately")
@@ -66,6 +86,7 @@ MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
     
     good_barcodes <- names(which(table(barcodes[[1]][[1]][[1]]) > 1000))
     
+<<<<<<< HEAD
     # Run pileup command
     total_mpileups <- lapply(good_barcodes, function(x){
       
@@ -90,6 +111,22 @@ MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
       names(base_counts) <- bases
       base_counts
       
+=======
+    pileup_bam <- pileup(x,
+                         scanBamParam = ScanBamParam(which = GRanges(seqnames = chr_name, 
+                                                                   ranges = IRanges(1, maxpos))),
+                         pileupParam = PileupParam(distinguish_strands = FALSE, 
+                                                 max_depth = max_depth, 
+                                                 min_base_quality = min_base_quality, 
+                                                 min_mapq = min_mapq, 
+                                                 min_nucleotide_depth = min_nucleotide_depth, 
+                                                 min_minor_allele_depth = min_minor_allele_depth
+                         ))
+    bases <- c("A", "T", "C", "G")
+    base_counts <- lapply(bases, function(base){
+      mutation <- subset(pileup_bam, nucleotide == base)
+      data.frame(mutation$pos, mutation$count)
+>>>>>>> 42c5620ab06ad4237ca9c86467aab2e1b541f3ae
     })
     
     names(total_mpileups) <- good_barcodes
@@ -160,14 +197,13 @@ MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
   # Merge into one table and order
   allpos <- unique(unlist(lapply(res_counts2, rownames)))
   pos_tmp <- allpos
-  subs <- c("A>C", "A>G", "A>T", "C>A", "C>G", "C>T", "G>A", "G>C", "G>T", "T>A", "T>C", "T>G")
-  lapply(subs, function(x) pos_tmp <<- gsub(x, "", fixed = T, pos_tmp))
+  pos_tmp <- unlist(lapply(pos_tmp, function(x) substr(x, 1, nchar(x) - 3)))
   pos_tmp <- as.numeric(pos_tmp)
   allpos <- allpos[order(pos_tmp)]
   matr <- matrix(0, length(allpos), ncol(res_counts2[["A"]]))
   rownames(matr) <- allpos
   colnames(matr) <- colnames(res_counts2[["A"]])
-  lapply(res_counts, function(x){
+  lapply(res_counts2, function(x){
     ok <- intersect(rownames(matr), rownames(x))
     matr[ok,] <<- data.matrix(x[ok,])
   })
@@ -177,6 +213,61 @@ MitoTrace <- function(bam_list = bams, fasta = fasta_loc, chr_name = "chrM",
   counts <- as(counts, "sparseMatrix")
   coverage <- as(coverage, "sparseMatrix")
   
+  if(singlefile){
+    nom <- colnames(counts)[1]
+    counts <- as.data.frame(counts[,1])
+    coverage <- as.data.frame(coverage[,1])
+    colnames(counts) <- colnames(coverage) <- nom
+  }
+    
   return(list(read_counts = counts, coverage = coverage))
 }
+
+
+
+
+# define the MitoTrace plot coverage depth function
+MitoDepth <- function(mae = mae_res, species = "human", mt_ann = mt_ann){
+
+  # set the gene label location
+    if(species == "human"){
+    location_human <- c(288.55, 577, 1124.55, 1602, 2450.05, 3230, 3784.55, 
+                3900, 4300, 4700, 4990.55, 5150, 5550, 5950, 6350, 6750, 
+                7150.55, 7300, 7718, 7927.55, 8295, 8469.05, 8867.05, 9598.55,
+                9991, 10231.55, 10405, 10618.05, 11448.55, 11750, 12200, 12650, 
+                13242.55, 14411.05, 14674, 15317.05, 15700, 16200, 16584.55)
+    }
+  
+    # set color
+    require("RColorBrewer")
+    col= c(brewer.pal(n = 12, name = "Set3"), brewer.pal(n = 11, name = "Spectral"), brewer.pal(n = 9, name = "Set1"), brewer.pal(n = 8, name = "Accent"))
+
+    # plot the coverave depth # single sample
+    ymax <- max(log(mae[[2]][,1]))
+    plot(row.names(mae[[2]]), log(mae[[2]][,1]), 
+         type = "l", 
+         col="brown1", 
+         xlab="MT genome postion", 
+         ylab="log2(Coverage depth)",
+         main="scRNA-seq coverage depth cross MT genome", 
+         ylim=c(-5,ymax))
+    
+    # plot the MT gene bar 
+    for (i in 1:39) {
+      if(grepl("TR", mt_ann$gene[i])){
+        rect(mt_ann[i,2], -2.5, mt_ann[i,3], -1, col=col[i], border = "white")
+        text(location[i], -0.5, mt_ann$gene[i], cex = 0.9)
+      }
+      else if(grepl("RN", mt_ann$gene[i])){
+        rect(mt_ann[i,2], -2.5, mt_ann[i,3], -1, col=col[i], border = "white")
+        text(location[i], -0.5, mt_ann$gene[i], cex = 0.9)
+      }
+      else{
+        rect(mt_ann[i,2], -4, mt_ann[i,3], -2.5, col=col[i], border = "white")
+        text(location[i], -4.5, mt_ann$gene[i], cex = 0.9)
+      }
+    }
+    
+  }
+
 
