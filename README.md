@@ -34,7 +34,7 @@ install_github("lkmklsmn/MitoTrace")
 ![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/gene_bar_cov.png)
 
 ##### `MitoTrace` enables identification of germline variants from single cell SMART-SEQ2 data
-![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/R1.png)
+![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/smart-seq2.png)
 
 ##### `MitoTrace` enables identification of germline variants from single cell 10X genomics data
 ![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/10x_genomics.png)
