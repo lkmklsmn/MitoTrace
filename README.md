@@ -39,6 +39,38 @@ install_github("lkmklsmn/MitoTrace")
 ##### `MitoTrace` enables identification of germline variants from single cell 10X genomics data
 ![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/10x_genomics.png)
 
+```
+# read the file
+demuxlet <- fread("jurkat_293t_demuxlet.best")
+bams <- list.files("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/21_read_10xGenomics/jurkat", full.names = T, pattern = ".bam$")
+fasta_loc <- "/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/GitHub/MitoTrace/Data/GRCH38_MT.fa"
+
+mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
+  
+# Run MitoTrace
+mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT", min_umi = 100)
+
+# Calculate allele frequencies
+af <- calc_allele_frequency(mae_res)
+
+# Generate plots
+ok <- intersect(colnames(af), demuxlet$BARCODE)
+af <- af[,ok]
+cell_line <- sapply(demuxlet$BEST,function(x){strsplit(x,"-")[[1]][[2]]})
+cell_line <- cell_line[match(ok, demuxlet$BARCODE)]
+
+good_variants <- names(which(rowMeans(af) > 0.3))
+good_variants <- names(tail(sort(apply(af, 1, var)), 20))
+af_hv <- data.matrix(af[good_variants,])
+ydata <- Rtsne::Rtsne(t(af_hv))
+
+aframe <- data.frame(cell_line, ydata$Y)
+ggplot(aes(X1, X2, color = cell_line), data = aframe) + geom_point()
+
+anno <- data.frame(cell_line)
+rownames(anno) <- colnames(af_hv)
+pheatmap::pheatmap(af_hv, show_colnames = F, annotation_col = anno)
+```
 
 
 ##### `MitoTrace` detects increased mutational burden
