@@ -10,14 +10,6 @@ This repository contains the R code for MitoTrace. A R package to infer mitochon
 
 
 ## Install
-
-`MitoTrace` is available on Bioconductor, you could install it by:
-
-```
-if (!requireNamespace("BiocManager", quietly=TRUE))
-    install.packages("BiocManager")
-BiocManager::install("MitoTrace")
-```
 If you want to use the lastest version, please install it directly from GitHub:
 ```
 library("devtools")
