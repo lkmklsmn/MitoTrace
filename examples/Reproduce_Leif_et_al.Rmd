@@ -5,7 +5,8 @@ date: "27 November 2019"
 output: html_document
 ---
 
-In this analysis we will reproduce figures from Leif et al <https://www.cell.com/cell/pdf/S0092-8674(19)30055-8.pdf>.
+In this analysis we will reproduce figures from (Leif et al)<https://www.cell.com/cell/pdf/S0092-8674(19)30055-8.pdf>.
+
 Load R libraries
 ```{r warning=FALSE}
 library(ComplexHeatmap)
@@ -15,7 +16,7 @@ source("../R/MitoTrace.R")
 
 The BAM files can be downloaded from XXX.
 ```{r}
-bams <- list.files("/Users/lukas.simon/OneDrive/Miko/UTHealth/projects/MitoTrace/LeifEtAl/23_leif_bam/", full.names = T)
+bams <- list.files("../data/23_leif_bam/", full.names = T)
 bams <- bams[-grep("bai", bams)]
 ```
 
