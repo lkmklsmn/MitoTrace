@@ -7,7 +7,7 @@ output: html_document
 
 In this analysis we will reproduce figures from Leif et al <https://www.cell.com/cell/pdf/S0092-8674(19)30055-8.pdf>.
 Load R libraries
-```{r}
+```{r warning=FALSE}
 library(ComplexHeatmap)
 #library(MitoTrace)
 source("../R/MitoTrace.R")
