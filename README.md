@@ -124,10 +124,6 @@ rownames(anno) <- colnames(af_hv)
 pheatmap::pheatmap(af_hv, show_colnames = F, annotation_col = anno)
 ```
 
-
-##### `MitoTrace` detects increased mutational burden
-![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/barplot.png)
-
 ## Citation
 
 
