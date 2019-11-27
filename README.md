@@ -33,6 +33,10 @@ install_github("lkmklsmn/MitoTrace")
 ##### `MitoTrace::DepthPlot` draw the coverage depth of imported single cell data
 ![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/gene_bar_cov.png)
 
+##### `MitoTrace` enables reproduce the public results
+![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/reproduce_result.png)
+
+
 ##### `MitoTrace` enables identification of germline variants from single cell SMART-SEQ2 data
 ![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/smart-seq2.png)
 
