@@ -20,8 +20,8 @@ bams <- list.files("../data/23_leif_bam/", full.names = T)
 bams <- bams[-grep("bai", bams)]
 ```
 
-Run MitoTrace and calculate allele frequencies (this will take ~ 2min).
-```{r}
+Run MitoTrace and calculate allele frequencies (this will take ~ 3min).
+```{r warning=FALSE}
 mae_res <- MitoTrace(bam_list = bams, fasta = "../data/GRCH38_MT.fa", chr_name = "MT")
 al_fre <- calc_allele_frequency(mae_res)
 ```
