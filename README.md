@@ -37,7 +37,9 @@ install_github("lkmklsmn/MitoTrace")
 ![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/R1.png)
 
 ##### `MitoTrace` enables identification of germline variants from single cell 10X genomics data
-![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/somatic.png)
+![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/10x_genomics.png)
+
+
 
 ##### `MitoTrace` detects increased mutational burden
 ![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/barplot.png)
