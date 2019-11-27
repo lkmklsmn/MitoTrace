@@ -27,6 +27,7 @@ install_github("lkmklsmn/MitoTrace")
 
 ## Usage
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
+
 MitoDepth(bam_list = bams,species = "human", mt_ann = mt_ann)
 ## Example
 
@@ -39,6 +40,16 @@ MitoDepth(bam_list = bams,species = "human", mt_ann = mt_ann)
 ##### `MitoTrace` enables reproduce the public results
 ![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/reproduce_result.png)
 ```
+# MitoTrace to get the matrix
+mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
+# Calculate the allel frequencies
+al_fre <- calc_allele_frequency(mae_res)
+
+# ex. draw the boxplot
+boxplot(split(af[which(coord_alleles$start == 779 & coord_alleles$altAllele == "C"),], donors == "Donor1_C101"))
+
+# draw the heatmap
+Heatmap(target_mutation, cluster_columns = FALSE,col = col_fun,cluster_rows = FALSE,show_column_names = FALSE,name = "Allele\nFrequency", column_title="Donor1 colonies",row_title = "Mitochondiral mutations")
 
 ```
 
