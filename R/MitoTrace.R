@@ -8,6 +8,8 @@
 #' @param bams_list Vector of absolute path(s) pointing to BAM alignment file(s).
 #' @param ref_fasta Absolute path to the mitochondrial reference genome in FASTA format.
 #' @param name Name of mitochondrial genome as specified in the BAM files. Sequence names can be check with the checkSequenceNames() function.
+#' @param tag_name The name of the tag corresponding the cellular barcode. Default = "CB". For droplet scRNAseq only.
+#' @param min_read The minimum number of read counts to be considered a valid barcode (cell) in the analysis. Default = 1000. For droplet scRNAseq technologies only.
 #' @param max_depth The maximum depth of reads considered at any position.
 #' @param min_base_quality The minimum read base quality below which the base is ignored when summarizing pileup information.
 #' @param min_mapq The minimum mapping quality below which the entire reads is ignored.
@@ -29,16 +31,18 @@
 # check BAM chromosome names
 checkSequenceNames <- function(bam_list){
   require(Rsamtools)
-  tmp <- scanBamHeader(bam)
+  tmp <- scanBamHeader(bam_list[[1]])
   targets <- names(tmp[[1]][[1]])
-  text <- names(tmp[[1]][[2]])
-  targets[which(text == "@SQ")]
+  #text <- names(tmp[[1]][[2]])
+  targets#[which(text == "@SQ")]
 }
 
 # define the MitoTrace main function
 MitoTrace <- function(bam_list = bams, 
                       fasta = fasta_loc, 
                       chr_name = "MT",
+                      tag_name = "CB",
+                      min_read = 1000,
                       max_depth= 1e6, 
                       min_base_quality= 25, 
                       min_mapq = 30, 
@@ -48,14 +52,14 @@ MitoTrace <- function(bam_list = bams,
   require(Matrix)
   require(seqinr)
   
-  if(length(bam_list) == 1) {
-    singlefile <- T
-    }
-  else{ 
-    singlefile=F
-    }
+#  if(length(bam_list) == 1) {
+#    singlefile <- T
+#    }
+#  else{ 
+#    singlefile=F
+#    }
   
-  if(singlefile) bam_list <- rep(bam_list, 2)
+#  if(singlefile) bam_list <- rep(bam_list, 2)
   
   bases <- c("A", "C", "G", "T")
   
@@ -78,19 +82,19 @@ MitoTrace <- function(bam_list = bams,
   if(combinedBam){
     print("Extracting barcodes from single BAM file and running pileup for each barcode separately")
     
-    params <- ScanBamParam(tag = "CB", which = gr)
-    barcodes <- scanBam(bam, param = params)
+    params <- ScanBamParam(tag = tag_name, which = which)
+    barcodes <- scanBam(bam_list, param = params)
     
-    good_barcodes <- names(which(table(barcodes[[1]][[1]][[1]]) > 1000))
+    good_barcodes <- names(which(table(barcodes[[1]][[1]][[1]]) > min_read))
 
     # Run pileup command
     total_mpileups <- lapply(good_barcodes, function(x){
       
       filter <- list(x)
-      names(filter) <- "CB"
+      names(filter) <- tag_name
       
-      pileup_bam <- pileup(bam,
-                           scanBamParam=ScanBamParam(tagFilter = l, which=gr),
+      pileup_bam <- pileup(bam_list,
+                           scanBamParam=ScanBamParam(tagFilter = filter, which=which),
                            pileupParam=PileupParam(distinguish_strands= FALSE, 
                                                    max_depth= max_depth, 
                                                    min_base_quality=min_base_quality, 
@@ -193,18 +197,23 @@ MitoTrace <- function(bam_list = bams,
   counts <- as(counts, "sparseMatrix")
   coverage <- as(coverage, "sparseMatrix")
   
-  if(singlefile){
-    nom <- colnames(counts)[1]
-    counts <- as.data.frame(counts[,1])
-    coverage <- as.data.frame(coverage[,1])
-    colnames(counts) <- colnames(coverage) <- nom
-  }
+#  if(singlefile){
+#    nom <- colnames(counts)[1]
+#    counts <- as.data.frame(counts[,1])
+#    coverage <- as.data.frame(coverage[,1])
+#    colnames(counts) <- colnames(coverage) <- nom
+#  }
     
   return(list(read_counts = counts, coverage = coverage))
 }
 
-
-
+# define function to calculate allele frequency based on MitoTrace Rdata object
+calc_allele_frequency <- function(object){
+  tmp <- rownames(object[[1]])
+  pos <- unlist(lapply(tmp, function(x) substr(x, 1, nchar(x) - 3)))
+  pos <- as.numeric(pos)
+  (object[[1]])/(object[[2]][pos,] + 0.0001)
+}
 
 # define the MitoTrace plot coverage depth function
 MitoDepth <- function(mae = mae_res, species = "human", mt_ann = mt_ann){
@@ -249,6 +258,3 @@ MitoDepth <- function(mae = mae_res, species = "human", mt_ann = mt_ann){
     }
     
   }
-
-# test nov. 25, 2019
-
