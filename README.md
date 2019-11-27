@@ -1,5 +1,5 @@
 # MitoTrace
-This repository contains the R code for MitoTrace. A R package to infer mitochondrial heterplasmies from single-cell RNA sequencing data. 
+This repository contains the R code for MitoTrace. A R package to infer mitochondrial heterplasmies from single-cell RNA sequencing data.
 
 
 ## Dependencies for MitoTrace
@@ -32,13 +32,13 @@ MitoDepth(bam_list = bams,species = "human", mt_ann = mt_ann)
 ## Example
 
 ##### `MitoTrace::DepthPlot` draw the coverage depth of imported single cell data
-![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/gene_bar_cov.png)
+![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/images/gene_bar_cov.png)
 ```
 MitoDepth(bam_list = bams,species = "human", mt_ann = mt_ann)
 ```
 
 ##### `MitoTrace` enables reproduce the public results
-![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/reproduce_result.png)
+![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/images/reproduce_result.png)
 ```
 # MitoTrace to get the matrix
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
@@ -55,7 +55,7 @@ Heatmap(target_mutation, cluster_columns = FALSE,col = col_fun,cluster_rows = FA
 
 
 ##### `MitoTrace` enables identification of germline variants from single cell SMART-SEQ2 data
-![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/smart-seq2.png)
+![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/images/smart-seq2.png)
 ```
 # MitoTrace to get the matrix
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
@@ -89,7 +89,7 @@ pheatmap::pheatmap(tmp, cluster_cols = T, annotation_col = anno_col, show_colnam
 ```
 
 ##### `MitoTrace` enables identification of germline variants from single cell 10X genomics data
-![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/example/10x_genomics.png)
+![GitHub Logo](https://github.com/lkmklsmn/MitoTrace/blob/master/images/10x_genomics.png)
 
 ```
 # read the file
@@ -98,7 +98,7 @@ bams <- list.files("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/1
 fasta_loc <- "/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/GitHub/MitoTrace/Data/GRCH38_MT.fa"
 
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
-  
+
 # Run MitoTrace
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT", min_umi = 100)
 
