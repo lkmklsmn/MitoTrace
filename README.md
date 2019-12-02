@@ -13,6 +13,7 @@ R packages requirements for MitoTrace:
 ## Install
 If you want to use the lastest version, please install it directly from GitHub:
 ```
+install.packages("devtools")
 library("devtools")
 install_github("lkmklsmn/MitoTrace")
 ```
