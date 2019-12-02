@@ -1,5 +1,5 @@
 # MitoTrace
-This repository contains the R code for MitoTrace. A user-friendly R package to infer mitochondrial heterplasmies from single-cell RNA sequencing data.
+This repository contains the R code for MitoTrace. A user-friendly R package to infer mitochondrial heterplasmies from single-cell RNA sequencing data. MitoTrace could identify the germline from single-cell data generated from both SMART-Seq2 and 10X genomics platform.
 
 
 ## Dependencies for MitoTrace
