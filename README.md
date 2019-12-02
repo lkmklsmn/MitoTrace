@@ -1,8 +1,9 @@
 # MitoTrace
-This repository contains the R code for MitoTrace. A R package to infer mitochondrial heterplasmies from single-cell RNA sequencing data.
+This repository contains the R code for MitoTrace. A user-friendly R package to infer mitochondrial heterplasmies from single-cell RNA sequencing data.
 
 
 ## Dependencies for MitoTrace
+R packages requirements for MitoTrace:
 * R (>= 3.6.0)
 * seqinr (>= 3.4-5)
 * Matrix (>= 1.2-17)
