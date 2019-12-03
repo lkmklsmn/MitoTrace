@@ -10,8 +10,9 @@ This repository contains the R code for MitoTrace. A R package to infer mitochon
 
 
 ## Install
-If you want to use the lastest version, please install it directly from GitHub:
+If you want to use the lastest version of MitoTrace, please install it directly from GitHub. First, you need to install and load the devtools package. Then use install_github("lkmklsmn/MitoTrace") as follow:
 ```
+install.packages("devtools")
 library("devtools")
 install_github("lkmklsmn/MitoTrace")
 ```
