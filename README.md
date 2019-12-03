@@ -1,9 +1,8 @@
 # MitoTrace
-This repository contains the R code for MitoTrace. A user-friendly R package to infer mitochondrial heterplasmies from single-cell RNA sequencing data. MitoTrace could identify the germline from single-cell data generated from both SMART-Seq2 and 10X genomics platform.
+This repository contains the R code for MitoTrace. A R package to infer mitochondrial heterplasmies from single-cell RNA sequencing data.
 
 
 ## Dependencies for MitoTrace
-R packages requirements for MitoTrace:
 * R (>= 3.6.0)
 * seqinr (>= 3.4-5)
 * Matrix (>= 1.2-17)
@@ -11,9 +10,8 @@ R packages requirements for MitoTrace:
 
 
 ## Install
-If you want to use the lastest version of MitoTrace, please install it directly from GitHub. First you need to install the devtools and load the devtools package, then use install_github("lkmklsmn/MitoTrace") as follow:
+If you want to use the lastest version, please install it directly from GitHub:
 ```
-install.packages("devtools")
 library("devtools")
 install_github("lkmklsmn/MitoTrace")
 ```
@@ -23,6 +21,8 @@ install_github("lkmklsmn/MitoTrace")
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
 
 MitoDepth(bam_list = bams,species = "human", mt_ann = mt_ann)
+
+
 ## Example
 
 ##### `MitoTrace::DepthPlot` draw the coverage depth of imported single cell data
