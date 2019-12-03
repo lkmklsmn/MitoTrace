@@ -8,3 +8,4 @@ Maintainer: Mingqiang WANG <Mingqiang.Wang@uth.tmc.edu>, Simon Lukas <Lukas.Simo
 Depends: R (>= 3.6.0), seqinr (>= 3.4-5), Matrix (>= 1.2-17), Rsamtools (>= 2.0.0)
 Description: A user-friendly R package to enable analysis of mitochondrial heteroplasmies and demonstrate the validity and value of our computational framework in a number of exemplary analyses.
 License: GPL (>= 2)
+RoxygenNote: 6.1.1
