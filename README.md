@@ -2,7 +2,7 @@
 This repository contains the R code for MitoTrace. A R package to infer mitochondrial heterplasmies from single-cell RNA sequencing data.
 
 
-## Prerequisites for MitoTrace
+## Prerequisites
 MitoTrace runs on 32-bit or 64-bit GNU/Linux R environment and requests dependent R packages: seqinr, Matrix, Rsamtools. Here is are the concrete version of the each dependencies.
 * R (>= 3.6.1)
 * seqinr (>= 3.4-5)
@@ -18,7 +18,6 @@ install.packages("Matrix")
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("Rsamtools")
-
 ```
 
 
