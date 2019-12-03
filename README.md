@@ -3,10 +3,23 @@ This repository contains the R code for MitoTrace. A R package to infer mitochon
 
 
 ## Dependencies for MitoTrace
-* R (>= 3.6.0)
+MitoTrace runs on 32-bit or 64-bit GNU/Linux R environment and requests dependent R packages: seqinr, Matrix, Rsamtools. Here is are the concrete version of the each dependencies.
+* R (>= 3.6.1)
 * seqinr (>= 3.4-5)
 * Matrix (>= 1.2-17)
 * Rsamtools (>= 2.0.0)
+
+Here are the command line used to install the packages from MitoTrace.
+
+```
+install.packages("seqinr")
+install.packages("Matrix")
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("Rsamtools")
+
+```
 
 
 ## Install
@@ -21,7 +34,7 @@ install_github("lkmklsmn/MitoTrace")
 ## Usage
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
 
-MitoDepth(bam_list = bams,species = "human", mt_ann = mt_ann)
+MitoDepth(bam_list = bams, species = "human", mt_ann = mt_ann)
 
 
 ## Example
