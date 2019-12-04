@@ -1,32 +1,134 @@
 ---
 title: "MitoTrace works on single cell SMART-SEQ2 data"
-author: "Wang & Lukas"
+author: "Mingqiang Wang & Lukas Simon"
 date: "December 3, 2019"
 output: html_document
 ---
 
-In this analysis, we demonstrate that MitoTrace could identify the germline mutations on single cell SMART-SEQ2 data.
+In this analysis, we demonstrate that MitoTrace could identify the germline mutations on single-cell SMART-SEQ2 data whihc publicly available form Darmanis et al. (Darmanis et al. 2017).
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+Load R libraries
+```{r}
+library(MitoTrace)
+library(pheatmap)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+Read the bam file, these BAM files can be downloaded from the link: ***.
+```{r}
+bams <- list.files("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/GBM_Bam/", full.names = T, pattern = ".bam$")
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+read human GRCH38 MT genome
+```{r}
+fasta_loc <- "/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/GRCH38_MT.fa"
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+calculte the base counts and coverage counts
+```{r}
+mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc)
+```
+
+Run MitoTrace and calculate allele frequencies
+```{r}
+af <- calc_allele_frequency(mae_res)
+colnames(af) <- unlist(lapply(colnames(af), function(x) { a <- strsplit(x, "\\.") [[1]][1]}))
+```
+
+read the patient label
+```{r}
+ssr_list <- read.table("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/SRR_Patient_all_list_sorted", sep = "\t")
+ok <- intersect(colnames(af), ssr_list$V1)
+ssr_list <- ssr_list[match(colnames(af), as.character(ssr_list$V1)),]
+```
+
+read the plate relation file
+```{r}
+plate_relation <- read.table("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/GBM_SRA_plate_relation", sep = "\t", header = T)
+plate_relation <- plate_relation[match(colnames(af), as.character(plate_relation$sra)),]
+```
+
+read metadata
+```{r}
+meta <- read.table("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/GBM_metadata.csv")
+```
+
+read the geo file
+```{r}
+geo <- read.delim("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/FromGeoSpreadsheet.tsv", row.names = 1)
+geo <- geo[as.character(plate_relation$plate.well),]
+```
+
+read the tSNE matrix paper
+```{r}
+tsne <- read.table("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/GBM_TSNE.csv")
+```
+
+Split by allele frequency
+```{r}
+asplit <- split(as.character(ssr_list$V1), ssr_list$V2)
+sample_af_means <- do.call(cbind, lapply(asplit, function(x){
+  subm_af <- af[,x]
+  #subm_cov <- cov[,x]
+  rowMeans(subm_af, na.rm = T)
+}))
+cutoff <- 0.75
+ok <- which(apply(sample_af_means, 1, function(x) sum(x > cutoff)) > 0)
+```
+
+Identify informative germline mutations using AOV
+```{r}
+pvals <- apply(af[ok,], 1, function(x) try(summary(aov(x ~ geo$V8))[[1]][1, 5]))
+ok <- names(which(pvals < 1e-100))
+```
+
+generate the heatmap
+```{r}
+asplit <- split(colnames(af), geo$V8)
+samples_ok <- unlist(lapply(asplit, function(x) sample(x, 200)))
+indices_ok <- match(samples_ok, colnames(af))
+tmp <- af[ok, indices_ok]
+anno_col <- data.frame(patient = geo$V8[indices_ok])
+rownames(anno_col) <- colnames(tmp)
+pheatmap(tmp, show_colnames = F, annotation_col = anno_col, cluster_cols = T)
+```
+
+Highlight some sites
+```{r}
+par(mfrow = c(1,4))
+boxplot(split(tmp["11864T>C",], anno_col$patient == "BT_S1"), main = "11864T>C", xlab = "BT_S1", ylab = "Alternative allele frequency")
+boxplot(split(tmp["4924G>A",], anno_col$patient == "BT_S2"), main = "4924G>A", xlab = "BT_S2", ylab = "Alternative allele frequency")
+boxplot(split(tmp["4790A>G",], anno_col$patient == "BT_S4"), main = "4790A>G", xlab = "BT_S4", ylab = "Alternative allele frequency")
+boxplot(split(tmp["709G>A",], anno_col$patient == "BT_S6"), main = "709G>A", xlab = "BT_S6", ylab = "Alternative allele frequency")
+```
+
+
+tSNE visualization of the cell-cell distance matrix by mitochondrial heteroplasmy profiles separates 4 patients.
+```{r}
+vars <- apply(af, 1, var)
+ok <- names(tail(sort(vars), 500))
+tmp <- data.matrix(af[ok,])
+tmp <- tmp[,which(apply(tmp, 2, var) > 0)]
+correl <- cor(tmp)
+tData <- Rtsne::Rtsne(1 - abs(correl), perplexity = 20)
+plot(tData$Y, col = as.character(meta$Sample.name.color), main = "Patient", pch =20)
+```
+
+tSNE visualization of the cell-cell distance matrix by cell type identify
+```{r}
+tsne <- tsne[rownames(meta),]
+plot(tsne, col = as.character(meta$Sample.name.color), pch = 16, xlab = "tSNE1", ylab = "tSNE2")
+```
+
+tSNE visualization of the cell cluster by cell type
+```{r}
+plot(tsne, col = as.character(meta$Cluster_2d_color), pch = 16, xlab = "tSNE1", ylab = "tSNE2")
+```
+
+
+
+
+
+```{r}
+
+
+```
