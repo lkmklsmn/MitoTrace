@@ -1,11 +1,11 @@
 ---
-title: "MitoTrace works on single cell SMART-SEQ2 data"
+title: "MitoTrace works on single cell RNA sequencing Smart-seq2 data"
 author: "Mingqiang Wang & Lukas Simon"
 date: "December 3, 2019"
 output: html_document
 ---
 
-In this analysis, we demonstrate that MitoTrace could identify the germline mutations on single-cell SMART-SEQ2 data which publicly available from Darmanis et al. (Darmanis et al. 2017).
+In this analysis, we demonstrate that MitoTrace could identify the germline mutations on single-cell Smart-seq2 data which publicly available from Darmanis et al. (Darmanis et al. 2017).
 
 Load R libraries
 ```{r}
@@ -13,54 +13,54 @@ library(MitoTrace)
 library(pheatmap)
 ```
 
-Read the bam file, these BAM files can be downloaded from the link: ***.
+Read the BAM files, these BAM files can be downloaded from the link: ***.
 ```{r}
-bams <- list.files("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/GBM_Bam/", full.names = T, pattern = ".bam$")
+bams <- list.files("../Data/DarmanisEtAl/bam_file", full.names = T, pattern = ".bam$")
 ```
 
-read human GRCH38 MT genome
+Read the human GRCH38 Mitochondrial reference genome
 ```{r}
-fasta_loc <- "/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/GRCH38_MT.fa"
+fasta_loc <- "../Data/GRCH38_MT.fa"
 ```
 
-calculte the base counts and coverage counts
+MitoTrace calculates alternative allele counts and read coverage for each nucleotide position
 ```{r}
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc)
 ```
 
-Run MitoTrace and calculate allele frequencies
+MitoTrace calculate the allele frequencies
 ```{r}
 af <- calc_allele_frequency(mae_res)
 colnames(af) <- unlist(lapply(colnames(af), function(x) { a <- strsplit(x, "\\.") [[1]][1]}))
 ```
 
-read the patient label
+Read the relevant label files originated from the publication (Darmanis et al. 2017).
 ```{r}
-ssr_list <- read.table("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/SRR_Patient_all_list_sorted", sep = "\t")
+ssr_list <- read.table("../Data/DarmanisEtAl/annotation_file/SRR_Patient_all_list_sorted", sep = "\t")
 ok <- intersect(colnames(af), ssr_list$V1)
 ssr_list <- ssr_list[match(colnames(af), as.character(ssr_list$V1)),]
 ```
 
-read the plate relation file
+Read the plate relation file
 ```{r}
-plate_relation <- read.table("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/GBM_SRA_plate_relation", sep = "\t", header = T)
+plate_relation <- read.table("../Data/DarmanisEtAl/annotation_file/GBM_SRA_plate_relation", sep = "\t", header = T)
 plate_relation <- plate_relation[match(colnames(af), as.character(plate_relation$sra)),]
 ```
 
-read metadata
+Read metadata file
 ```{r}
-meta <- read.table("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/GBM_metadata.csv")
+meta <- read.table("../Data/DarmanisEtAl/annotation_file/GBM_metadata.csv")
 ```
 
-read the geo file
+Read the geo file
 ```{r}
-geo <- read.delim("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/FromGeoSpreadsheet.tsv", row.names = 1)
+geo <- read.delim("../Data/DarmanisEtAl/annotation_file/FromGeoSpreadsheet.tsv", row.names = 1)
 geo <- geo[as.character(plate_relation$plate.well),]
 ```
 
-read the tSNE matrix paper
+Read the tSNE matrix
 ```{r}
-tsne <- read.table("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/rds_all_cell/GBM_TSNE.csv")
+tsne <- read.table("../Data/DarmanisEtAl/annotation_file/GBM_TSNE.csv")
 ```
 
 Split by allele frequency
@@ -68,7 +68,6 @@ Split by allele frequency
 asplit <- split(as.character(ssr_list$V1), ssr_list$V2)
 sample_af_means <- do.call(cbind, lapply(asplit, function(x){
   subm_af <- af[,x]
-  #subm_cov <- cov[,x]
   rowMeans(subm_af, na.rm = T)
 }))
 cutoff <- 0.75
@@ -81,7 +80,7 @@ pvals <- apply(af[ok,], 1, function(x) try(summary(aov(x ~ geo$V8))[[1]][1, 5]))
 ok <- names(which(pvals < 1e-100))
 ```
 
-generate the heatmap
+Generate the heatmap to plot the data
 ```{r}
 asplit <- split(colnames(af), geo$V8)
 samples_ok <- unlist(lapply(asplit, function(x) sample(x, 200)))
@@ -92,7 +91,7 @@ rownames(anno_col) <- colnames(tmp)
 pheatmap(tmp, show_colnames = F, annotation_col = anno_col, cluster_cols = T)
 ```
 
-Highlight some sites
+Highlight some identified germline mutation sites
 ```{r}
 par(mfrow = c(1,4))
 boxplot(split(tmp["11864T>C",], anno_col$patient == "BT_S1"), main = "11864T>C", xlab = "BT_S1", ylab = "Alternative allele frequency")
@@ -103,7 +102,7 @@ par(mfrow = c(1,1))
 ```
 
 
-tSNE visualization of the cell-cell distance matrix by mitochondrial heteroplasmy profiles separates 4 patients.
+tSNE visualization of the cell-cell distance matrix by mitochondrial heteroplasmy profiles separated 4 patients.
 ```{r}
 vars <- apply(af, 1, var)
 ok <- names(tail(sort(vars), 500))

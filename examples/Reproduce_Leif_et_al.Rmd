@@ -9,9 +9,8 @@ In this analysis we will reproduce figures from (Leif et al)<https://www.cell.co
 
 Load R libraries
 ```{r warning=FALSE}
+library(MitoTrace)
 library(ComplexHeatmap)
-#library(MitoTrace)
-source("../R/MitoTrace.R")
 ```
 
 The BAM files can be downloaded from XXX.

@@ -23,7 +23,7 @@
 #'
 #' @return Read counts matrix and coverage matrix.
 #'
-#' @author Mingqiang WANG <Mingqiang.Wang@uth.tmc.edu>, Simon Lukas <lkmklsmn@gmail.com>
+#' @author Mingqiang WANG <mqwangcuhk@gmail.com>, Simon Lukas <lkmklsmn@gmail.com>
 #'
 #' @references The current source code of MitoTrace is from https://github.com/lkmklsmn/MitoTrace.
 
