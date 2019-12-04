@@ -5,33 +5,32 @@ date: "December 3, 2019"
 output: html_document
 ---
 
-In this analysis, we demonstrate that MitoTrace could identify the germline mutations on single-cell 10X Genomics data which publicly available from McGinnis et al. (McGinnis et al. 2019). (https://ucsf.app.box.com/s/vg1bycvsjgyg63gkqsputprq5rxzjl6k)
+In this analysis, we demonstrate that MitoTrace identifies germline mutations in droplet-based single-cell RNA sequencing data (10X Genomics). The underlying BAM file is available from McGinnis et al. (McGinnis et al. 2019). (https://ucsf.app.box.com/s/vg1bycvsjgyg63gkqsputprq5rxzjl6k)
 
 Load R libraries
-```{r}
+```{r message=FALSE}
 library(data.table)
 library(MitoTrace)
 library(ggplot2)
 ```
 
-Read the annotation file
+Read the annotation files
 ```{r}
 demuxlet <- fread("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/21_read_10xGenomics/jurkat/jurkat_293t_demuxlet.best")
 bams <- list.files("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/21_read_10xGenomics/jurkat", full.names = T, pattern = ".bam$")
 ```
 
-Read human GRCH38 Mitochondrial reference genome
+Read the human GRCH38 Mitochondrial reference genome
 ```{r}
 fasta_loc <- "/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/GRCH38_MT.fa"
 ```
 
-MitoTrace calculate the base counts and coverage counts
+MitoTrace calculates alternative allele counts and read coverage for each nucleotide position
 ```{r}
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT", min_read = 100)
-#mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
 ```
 
-MitoTrace calculate the allele frequencies
+MitoTrace calculates the allele frequencies
 ```{r}
 af <- calc_allele_frequency(mae_res)
 ```
