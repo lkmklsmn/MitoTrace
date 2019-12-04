@@ -5,7 +5,13 @@ date: "December 3, 2019"
 output: html_document
 ---
 
-In this analysis, we demonstrate that MitoTrace identifies germline mutations in droplet-based single-cell RNA sequencing data (10X Genomics). The underlying BAM file is available from McGinnis et al. (McGinnis et al. 2019). (https://ucsf.app.box.com/s/vg1bycvsjgyg63gkqsputprq5rxzjl6k)
+In this analysis, we demonstrate that MitoTrace identifies germline mutations in droplet-based single-cell RNA sequencing data (10X Genomics). The underlying BAM file is available from McGinnis et al. (McGinnis et al. 2019).
+The bam file we used could be downloaded from here (https://ucsf.app.box.com/s/vg1bycvsjgyg63gkqsputprq5rxzjl6k).
+
+Use samtools to re-index the bam file in linux based environment
+```{shell}
+samtools index jurkat_293t_downsampled_n500_full_bam.bam
+```
 
 Load R libraries
 ```{r message=FALSE}
