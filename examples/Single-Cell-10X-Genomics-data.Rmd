@@ -6,12 +6,6 @@ output: html_document
 ---
 
 In this analysis, we demonstrate that MitoTrace identifies germline mutations in droplet-based single-cell RNA sequencing data (10X Genomics). The underlying BAM file is available from McGinnis et al. (McGinnis et al. 2019).
-The bam file we used could be downloaded from here (https://ucsf.app.box.com/s/vg1bycvsjgyg63gkqsputprq5rxzjl6k).
-
-Use samtools to re-index the bam file in linux based environment
-```{shell}
-samtools index jurkat_293t_downsampled_n500_full_bam.bam
-```
 
 Load R libraries
 ```{r message=FALSE}
@@ -20,15 +14,19 @@ library(MitoTrace)
 library(ggplot2)
 ```
 
+Read the BAM files, the bam file we used could be downloaded from here (https://ucsf.app.box.com/s/vg1bycvsjgyg63gkqsputprq5rxzjl6k). Please use samtools to re-index the bam file
+```{r}
+bams <- list.files("../Data/McGinnisEtAl/bam_file", full.names = T, pattern = ".bam$")
+```
+
 Read the annotation files
 ```{r}
-demuxlet <- fread("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/21_read_10xGenomics/jurkat/jurkat_293t_demuxlet.best")
-bams <- list.files("/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/21_read_10xGenomics/jurkat", full.names = T, pattern = ".bam$")
+demuxlet <- fread("../Data/McGinnisEtAl/annotation_file/jurkat_293t_demuxlet.best")
 ```
 
 Read the human GRCH38 Mitochondrial reference genome
 ```{r}
-fasta_loc <- "/Users/mwang14/Google Drive/00_Texas_Posdoc_Career/01_Zhao/12_Develop_Mitogenotyping_Tools/02_GBM_data/GRCH38_MT.fa"
+fasta_loc <- "../Data/GRCH38_MT.fa"
 ```
 
 MitoTrace calculates alternative allele counts and read coverage for each nucleotide position
@@ -41,7 +39,7 @@ MitoTrace calculates the allele frequencies
 af <- calc_allele_frequency(mae_res)
 ```
 
-Generate plots
+Generate heatmap and tsne map to plot the data
 ```{r}
 ok <- intersect(colnames(af), demuxlet$BARCODE)
 af <- af[,ok]
