@@ -30,7 +30,7 @@ fasta_loc <- "../Data/GRCH38_MT.fa"
 ```
 
 MitoTrace calculates alternative allele counts and read coverage for each nucleotide position
-```{r}
+```{r warning=FALSE}
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT", min_read = 100)
 ```
 
@@ -39,7 +39,7 @@ MitoTrace calculates the allele frequencies
 af <- calc_allele_frequency(mae_res)
 ```
 
-Generate heatmap and tsne map to plot the data
+Perform unsupervised dimension reduction on highly variable alles. 
 ```{r}
 ok <- intersect(colnames(af), demuxlet$BARCODE)
 af <- af[,ok]
@@ -49,12 +49,31 @@ cell_line <- cell_line[match(ok, demuxlet$BARCODE)]
 good_variants <- names(which(rowMeans(af) > 0.3))
 good_variants <- names(tail(sort(apply(af, 1, var)), 20))
 af_hv <- data.matrix(af[good_variants, ])
-ydata <- Rtsne::Rtsne(t(af_hv))
+ydata <- prcomp(t(af_hv))
 
-aframe <- data.frame(cell_line, ydata$Y)
-ggplot(aes(X1, X2, color = cell_line), data = aframe) + geom_point()
+aframe <- data.frame(cell_line, ydata$x)
+ggplot(aes(PC1, PC2, color = cell_line), data = aframe) + geom_point()
 
 anno <- data.frame(cell_line)
 rownames(anno) <- colnames(af_hv)
 pheatmap::pheatmap(af_hv, show_colnames = F, annotation_col = anno)
+```
+
+Can we identify doublets? Build classifier on highly informative alleles.
+```{r}
+pvals <- apply(af[which(Matrix::rowMeans(af) > 0), ], 1, function(x){
+  splitz <- split(x, cell_line)
+  wilcox.test(splitz[[1]], splitz[[2]])$p.value 
+})
+good <- names(which(pvals < 1e-5))
+
+af_hv <- data.matrix(af[good, ])
+ydata <- prcomp(t(af_hv))
+
+cell_line2 <- demuxlet$BEST[match(ok, demuxlet$BARCODE)]
+cell_line2[grep("DBL", cell_line2)] <- "DBL"
+aframe <- data.frame(cell_line2, ydata$x)
+ggplot(aes(PC1, PC2, color = cell_line2), data = aframe) + geom_point()
+
+
 ```
