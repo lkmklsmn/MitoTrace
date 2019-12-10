@@ -39,14 +39,11 @@ af <- calc_allele_frequency(mae_res)
 ## Examples
 Please check the *examples* folder for Markdown files, or use the following link to open.
 
-1. Reproduce the Leif et al cell result:
-<http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce_Cell_Leif_et_al.html>
+1. [Reproduce the Leif et al analysis](http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce_Cell_Leif_et_al.html)
 
-2. Single-cell SMART-SEQ2: 
-<http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html> 
+2. [Identify personal variants in SMART-seq2 data](http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html)
 
-3. Single-cell 10X Genomics: 
-<http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html>
+3. [Distinguish different cell lines using 10X Genomics data](http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
 
 ## Citation
 
