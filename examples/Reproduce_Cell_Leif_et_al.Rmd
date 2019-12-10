@@ -9,7 +9,7 @@ In this analysis we will reproduce results in figures 5H & 5I from (Leif et al)
 <https://www.cell.com/cell/pdf/S0092-8674(19)30055-8.pdf>.
 
 Load R libraries
-```{r warning=FALSE}
+```{r warning=FALSE, message=FALSE}
 library(MitoTrace)
 library(ComplexHeatmap)
 library(circlize)
@@ -31,7 +31,7 @@ ann <- read.table("../Data/LeifEtAl/annotation_file/SRR_donors_list")
 ```
 
 MitoTrace calculates alternative allele counts and read coverage for each nucleotide position
-```{r}
+```{r warning=FALSE}
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
 ```
 
@@ -85,5 +85,4 @@ Generate the heapmap figure 5H
 col_fun = colorRamp2(c(0, 0.1, 0.2), c("white", "firebrick", "firebrick4"))
 Heatmap(as.matrix(selected_mutation), col= col_fun, name = "Allele\nFrequency",show_column_names = FALSE, cluster_columns = FALSE, cluster_rows = FALSE, column_title="Donor1 colonies", row_title = "Mitochondiral mutations")
 ```
-
 
