@@ -25,17 +25,17 @@ Read the human GRCH38 Mitochondrial reference genome
 fasta_loc <- "../Data/GRCH38_MT.fa"
 ```
 
-# Read the sample lable file
+Read the sample lable file
 ```{r}
 ann <- read.table("../Data/LeifEtAl/annotation_file/SRR_donors_list")
 ```
 
-# MitoTrace calculates alternative allele counts and read coverage for each nucleotide position
+MitoTrace calculates alternative allele counts and read coverage for each nucleotide position
 ```{r}
 mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
 ```
 
-# MitoTrace calculate the allele frequencies
+MitoTrace calculate the allele frequencies
 ```{r}
 af <- calc_allele_frequency(mae_res)
 ```
@@ -47,9 +47,9 @@ colnames(af01) <- na.omit(ann$V2[match(colnames(af), ann$V1)])
 donors <- unlist(lapply(colnames(af01), function(x) paste(strsplit(x, "_", fixed = T)[[1]][1:2], collapse = "_")))
 ```
 
-# boxplot to show the specific mutation site, figure 5I
-# first row
+Boxplot to show the specific mutation site, figure 5I
 ```{r}
+# plot first row
 par(mfrow = c(2,6))
 boxplot(rev(split(af01["779T>C", ], donors == "Donor1_C101")), main="779 T>C",ylab="Variant heteroplasmy", names=c("C101", "Other"))
 boxplot(rev(split(af01["8978T>C", ], donors == "Donor1_C103")), main="8979 T>C", names=c("C103","Other"))
@@ -57,7 +57,7 @@ boxplot(rev(split(af01["6712A>G", ], donors == "Donor1_C107")), main="6712 A>G",
 boxplot(rev(split(af01["1082A>G", ], donors == "Donor1_C109")), main="1082 A>G", names=c("C109","Other"))
 boxplot(rev(split(af01["3776G>A", ], donors == "Donor1_C112")), main="3776 T>A", names=c("C112","Other"))
 boxplot(rev(split(af01["7275T>C", ], donors == "Donor1_C114")), main="7275 T>C", names=c("C114","Other"))
-# second row
+# plot second row
 boxplot(rev(split(af01["13093G>A", ], donors == "Donor1_C116")), main="13093 G>A", ylab="Variant heteroplasmy", names=c("C116","Other"))
 boxplot(rev(split(af01["7340G>A", ], donors == "Donor1_C118")), main="7340 G>A", names=c("C118","Other"))
 boxplot(rev(split(af01["7754G>A", ], donors == "Donor1_C120")), main="7755 G>A", names=c("C120","Other"))
@@ -68,24 +68,22 @@ boxplot(rev(split(af01["1446A>G", ], donors == "Donor1_C135")), main="1448 A>G",
 par(mfrow = c(1,1))
 ```
 
-# read the target mutation
+Read the target mutation
 ```{r}
 target_mutation <- read.csv("../Data/LeifEtAl/annotation_file/target_mutation.csv", header = FALSE)
 selected_mutation <- af01[target_mutation$V1, ]
 ```
 
-# get the cell order
+Read the the cell order
 ```{r}
 cell_order <- read.csv("../Data/LeifEtAl/annotation_file/target_cell.csv", header = FALSE)
 selected_mutation <- selected_mutation[, cell_order$V1]
 ```
 
-# generate the heapmap figure 5H
+Generate the heapmap figure 5H
 ```{r}
 col_fun = colorRamp2(c(0, 0.1, 0.2), c("white", "firebrick", "firebrick4"))
 Heatmap(as.matrix(selected_mutation), col= col_fun, name = "Allele\nFrequency",show_column_names = FALSE, cluster_columns = FALSE, cluster_rows = FALSE, column_title="Donor1 colonies", row_title = "Mitochondiral mutations")
 ```
 
-Now, we can reproduce the figures from Figure X.
-(https://github.com/lkmklsmn/MitoTrace/blob/master/images/reproduce_result.png)
 
