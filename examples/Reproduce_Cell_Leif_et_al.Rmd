@@ -41,8 +41,13 @@ af <- calc_allele_frequency(mae_res)
 ```
 
 ```{r}
+# Change the column name
 colnames(af) <- unlist(lapply(colnames(af), function(x) strsplit(x, ".", fixed=T)[[1]][1]))
+
+# Exclude cells that do not have the label
 af01 <- af[ ,na.omit(ann$V1[match(colnames(af), ann$V1)])]
+
+# Change the column name of new dataframe
 colnames(af01) <- na.omit(ann$V2[match(colnames(af), ann$V1)])
 donors <- unlist(lapply(colnames(af01), function(x) paste(strsplit(x, "_", fixed = T)[[1]][1:2], collapse = "_")))
 ```
