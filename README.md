@@ -30,15 +30,21 @@ install_github("lkmklsmn/MitoTrace")
 ```
 
 ## Usage
+
 Plot the read coverage across the mitochondria
-> MitoDepth(bam_list = bams, species = "human", mt_ann = mt_ann)
+```
+MitoDepth(bam_list = bams, species = "human", mt_ann = mt_ann)
+```
 
 Extract read coverage and alternative allele counts across all positions
-> mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
+```
+mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
+```
 
 Calculate allele frequency
-> af <- calc_allele_frequency(mae_res)
-
+```
+af <- calc_allele_frequency(mae_res)
+```
 ## Examples
 Please check the *examples* folder for Markdown files, or use the following link to open.
 
