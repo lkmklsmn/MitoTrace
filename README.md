@@ -39,12 +39,12 @@ af <- calc_allele_frequency(mae_res)
 ## Examples
 Please check the *examples* folder for Markdown files, or use the following link to open.
 
-Reproduce the Leif et al cell result: <http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce_Cell_Leif_et_al.html>
+### Reproduce the Leif et al cell result: <http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce_Cell_Leif_et_al.html>
 
-Single-cell SMART-SEQ2: 
+### Single-cell SMART-SEQ2: 
 <http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html> 
 
-Single-cell 10X Genomics: 
+### Single-cell 10X Genomics: 
 <http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html>
 
 ## Citation
