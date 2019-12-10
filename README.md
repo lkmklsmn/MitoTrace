@@ -50,7 +50,7 @@ Please check the *examples* folder for Markdown files, or use the following link
 
 2. [Identify personal variants in SMART-seq2 data[2]](http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html)
 
-3. [Distinguish different cell lines using 10X Genomics data[3]](http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
+3. [Distinguish different cell lines using 10X Genomics data](http://htmlpreview.github.com/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
 
 ## Citation
 
@@ -60,7 +60,6 @@ Please check the *examples* folder for Markdown files, or use the following link
 ## Reference
 1.	Ludwig, L.S., et al., Lineage Tracing in Humans Enabled by Mitochondrial Mutations and Single-Cell Genomics. Cell, 2019. 176(6): p. 1325-1339 e22.
 2.	Darmanis, S., et al., Single-Cell RNA-Seq Analysis of Infiltrating Neoplastic Cells at the Migrating Front of Human Glioblastoma. Cell Rep, 2017. 21(5): p. 1399-1410.
-3.	Angelidis, I., et al., An atlas of the aging lung mapped by single cell transcriptomics and deep tissue proteomics. Nat Commun, 2019. 10(1): p. 963.
 
 ### Note
 Our opimized, efficient and user-friendly R package `MitoTrace` is currently under development.
