@@ -1,5 +1,5 @@
 # MitoTrace
-This repository contains the R code for MitoTrace, a computational framework to infer mitochondrial heterplasmies from single-cell RNA sequencing data.
+This repository contains the R code for MitoTrace, a computational framework to study mitochondrial variation from single-cell RNA sequencing data.
 
 
 ## Prerequisites
