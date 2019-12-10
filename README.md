@@ -3,18 +3,16 @@ This repository contains the R code for MitoTrace, a computational framework to 
 
 
 ## Prerequisites
-MitoTrace runs on 32-bit or 64-bit GNU/Linux R environment and requests dependent R packages: seqinr, Matrix, Rsamtools. Here is are the concrete version of the each dependencies.
+MitoTrace runs on 32-bit or 64-bit GNU/Linux R environment and requires the following dependencies: 
 * R (>= 3.6.1)
 * seqinr (>= 3.4-5)
 * Matrix (>= 1.2-17)
 * Rsamtools (>= 2.0.0)
 
-Here are the command line used to install the packages from MitoTrace.
-
+Please  make sure these packages (and correct versions) are installed or install yourself in the following way:
 ```
 install.packages("seqinr")
 install.packages("Matrix")
-
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("Rsamtools")
