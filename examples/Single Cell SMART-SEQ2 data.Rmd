@@ -13,7 +13,7 @@ library(MitoTrace)
 library(pheatmap)
 ```
 
-Read the BAM files, these BAM files can be downloaded from the link: ***.
+Read the BAM files, these BAM files can be downloaded from the link: (https://drive.google.com/open?id=1oGK9_RE5t2CkzFKlg24dhaKmItmgRmMt).
 ```{r}
 bams <- list.files("../Data/DarmanisEtAl/bam_file", full.names = T, pattern = ".bam$")
 ```

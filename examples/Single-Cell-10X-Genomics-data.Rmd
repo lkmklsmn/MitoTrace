@@ -14,7 +14,7 @@ library(MitoTrace)
 library(ggplot2)
 ```
 
-Read the BAM files, the bam file we used could be downloaded from here (https://ucsf.app.box.com/s/vg1bycvsjgyg63gkqsputprq5rxzjl6k). Please use samtools to re-index the bam file
+Read the BAM files, the bam file we used could be downloaded from here (https://ucsf.app.box.com/s/vg1bycvsjgyg63gkqsputprq5rxzjl6k) or (https://drive.google.com/open?id=1y3WnnLnjLf4ZMNkyiqIqPPWzKPpgnZDP). Please use samtools to re-index the bam file
 ```{r}
 bams <- list.files("../Data/McGinnisEtAl/bam_file", full.names = T, pattern = ".bam$")
 ```
