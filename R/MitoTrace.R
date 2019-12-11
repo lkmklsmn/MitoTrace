@@ -42,6 +42,7 @@ MitoTrace <- function(bam_list = bams,
                       fasta = fasta_loc,
                       chr_name = "MT",
                       tag_name = "CB",
+                      barcodes = NULL,
                       min_read = 1000,
                       max_depth= 1e6,
                       min_base_quality= 25,
@@ -83,9 +84,14 @@ MitoTrace <- function(bam_list = bams,
     print("Extracting barcodes from single BAM file and running pileup for each barcode separately")
 
     params <- ScanBamParam(tag = tag_name, which = which)
-    barcodes <- scanBam(bam_list, param = params)
 
-    good_barcodes <- names(which(table(barcodes[[1]][[1]][[1]]) > min_read))
+    if(is.null(barcodes)){
+      barcodes <- scanBam(bam_list, param = params)
+      good_barcodes <- names(which(table(barcodes[[1]][[1]][[1]]) > min_read))
+    }
+    else{
+      good_barcodes <- barcodes
+    }
 
     # Run pileup command
     total_mpileups <- lapply(good_barcodes, function(x){

@@ -1,12 +1,11 @@
 ---
 title: "Reproduce results in figures 5H & 5I from Leif et al"
 author: "Mingqiang Wang & Lukas Simon"
-date: "27 November 2019"
+date: "10 December 2019"
 output: html_document
 ---
 
-In this analysis we will reproduce results in figures 5H & 5I from (Leif et al) 
-<https://www.cell.com/cell/pdf/S0092-8674(19)30055-8.pdf>.
+In this analysis we will reproduce results in figures 5H & 5I from [Leif et al](https://www.cell.com/cell/pdf/S0092-8674(19)30055-8.pdf).
 
 Load R libraries
 ```{r warning=FALSE, message=FALSE}
@@ -15,7 +14,7 @@ library(ComplexHeatmap)
 library(circlize)
 ```
 
-Read the BAM files, the BAM files can be downloaded from the link (https://drive.google.com/open?id=1XaSzUukQkIj6SoItK0H6GNbsD7COLZCJ).
+Read the BAM files, the BAM files can be downloaded from [here](https://drive.google.com/open?id=1XaSzUukQkIj6SoItK0H6GNbsD7COLZCJ).
 ```{r}
 bams <- list.files("../Data/LeifEtAl/bam_file", full.names = T, pattern = ".bam$")
 ```
