@@ -90,7 +90,7 @@ MitoTrace <- function(bam_list = bams,
       barcodes <- scanBam(bam_list, param = params)
       good_barcodes <- names(which(table(barcodes[[1]][[1]][[1]]) > min_read))
     }
-    else{
+    if(!is.null(barcodes)){
       good_barcodes <- barcodes
     }
 
