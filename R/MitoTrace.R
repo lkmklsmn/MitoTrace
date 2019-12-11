@@ -8,7 +8,8 @@
 #' @param bams_list Vector of absolute path(s) pointing to BAM alignment file(s).
 #' @param ref_fasta Absolute path to the mitochondrial reference genome in FASTA format.
 #' @param name Name of mitochondrial genome as specified in the BAM files. Sequence names can be check with the checkSequenceNames() function.
-#' @param tag_name The name of the tag corresponding the cellular barcode. Default = "CB". For droplet scRNAseq only.
+#' @param tag_name The name of the tag corresponding the cellular barcode. Default = "CB". For droplet scRNA-seq only.
+#' @param barcodes The barcode list corresponding to the cells. For 10X genomics scRNA-seq data only.
 #' @param min_read The minimum number of read counts to be considered a valid barcode (cell) in the analysis. Default = 1000. For droplet scRNAseq technologies only.
 #' @param max_depth The maximum depth of reads considered at any position.
 #' @param min_base_quality The minimum read base quality below which the base is ignored when summarizing pileup information.
