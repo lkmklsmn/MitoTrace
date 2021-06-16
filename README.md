@@ -62,4 +62,4 @@ Please check the *examples* folder for Markdown files, or use the following link
 2.	Darmanis, S., et al., Single-Cell RNA-Seq Analysis of Infiltrating Neoplastic Cells at the Migrating Front of Human Glioblastoma. Cell Rep, 2017. 21(5): p. 1399-1410.
 
 ### Note
-Our opimized, efficient and user-friendly R package `MitoTrace` is currently under development.
+Our optimized, efficient and user-friendly R package `MitoTrace` is currently under development.
