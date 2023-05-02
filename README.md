@@ -45,7 +45,6 @@ Please check the *examples* folder for Markdown files, or use the following link
 2.  [Identify personal variants in SMART-seq2 data[2]](file:///Users/timwang/Documents/Google_Drive/GitHub/MitoTrace/examples/Single-Cell-SMART-SEQ2-data.html)
 
 3.  [Distinguish different cell lines using 10X Genomics data](file:///Users/timwang/Documents/Google_Drive/GitHub/MitoTrace/examples/Single-Cell-10X-Genomics-data.html)
-
 ## Citation
 
 ## License
