@@ -42,10 +42,9 @@ Please check the *examples* folder for Markdown files, or use the following link
 
 1.  [Reproduce the Leif et al analysis[1]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce_Cell_Leif_et_al.html)
 
+2.  [Identify personal variants in SMART-seq2 data[2]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html)
 
-2.  [Identify personal variants in SMART-seq2 data[2]](https://www.youtube.com/watch?v=bUoN85QvC10&ab_channel=RiffomonasProject)
-
-3.  [Distinguish different cell lines using 10X Genomics data](file:///Users/timwang/Documents/Google_Drive/GitHub/MitoTrace/examples/Single-Cell-10X-Genomics-data.html)
+3.  [Distinguish different cell lines using 10X Genomics data](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
 ## Citation
 
 ## License
