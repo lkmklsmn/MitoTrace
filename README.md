@@ -44,7 +44,7 @@ Please check the *examples* folder for Markdown files, or use the following link
 
 2.  [Identify personal variants in SMART-seq2 data[2]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html)
 
-3.  [Distinguish different cell lines using 10X Genomics data](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
+3.  [Distinguish different cell lines using 10X Genomics data[3]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
 ## Citation
 
 ## License
