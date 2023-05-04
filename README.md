@@ -38,11 +38,11 @@ Calculate allele frequency
 
 Please check the *examples* folder for Markdown files, or use the following link to open.
 
-1.  [Reproduce the Leif et al analysis[1]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce%20results%20in%20figures%205H%20%26%205I%20from%20Leif%20et%20al.html)
+1.  [MitoTrace reproduces the heteroplamsy reported in Leif's lineage tracing study analysis[1]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce%20results%20in%20figures%205H%20%26%205I%20from%20Leif%20et%20al.html)
 
-2.  [Identify personal variants in SMART-seq2 data[2]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html)
+2.  [MitoTrace identifies personal variants in SMART-seq2 data data[2]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html)
 
-3.  [Distinguish different cell lines using 10X Genomics data[3]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
+3.  [MitoTrace distinguishes different cell lines in 10X Genomics data data[3]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
 
 ## License
 
