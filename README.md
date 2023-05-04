@@ -40,7 +40,7 @@ Calculate allele frequency
 
 Please check the *examples* folder for Markdown files, or use the following link to open.
 
-1.  [Reproduce the Leif et al analysis[1]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce_Cell_Leif_et_al.html)
+1.  [Reproduce the Leif et al analysis[1]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce%20results%20in%20figures%205H%20%26%205I%20from%20Leif%20et%20al.html)
 
 2.  [Identify personal variants in SMART-seq2 data[2]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html)
 
