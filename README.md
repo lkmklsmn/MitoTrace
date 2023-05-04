@@ -15,8 +15,7 @@ Please make sure these packages (and correct versions) are installed or install 
     BiocManager::install("Rsamtools")
 
 ## Install
-
-If you want to use the lastest version of MitoTrace, please install it directly from GitHub. First, you need to install and load the devtools package. Then use install_github("lkmklsmn/MitoTrace") as follow:
+MitoTrace is designed for the R programming language  and statistical computing environment. If you want to use the lastest version of MitoTrace, please install it directly from GitHub. First, you need to install and load the devtools package. Then use install_github("lkmklsmn/MitoTrace") as follow line in your R console:
 
     install.packages("devtools")
     library("devtools")
