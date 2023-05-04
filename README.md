@@ -22,15 +22,15 @@ MitoTrace is designed for the R programming language  and statistical computing 
 
 ## Usage
 
-Plot the read coverage across the mitochondria
+MitoTrace plots the read coverage across the mitochondria human or mouse genome
 
     MitoDepth(bam_list = bams, species = "human", mt_ann = mt_ann)
 
-Extract read coverage and alternative allele counts across all positions
+MitoTrace extracts read coverage and alternative allele counts across all mitochondrial genome positions
 
     mae_res <- MitoTrace(bam_list = bams, fasta = fasta_loc, chr_name = "MT")
 
-Calculate allele frequency
+MitoTrace calculates allele frequency for each mitochondrial position
 
     af <- calc_allele_frequency(mae_res)
 
