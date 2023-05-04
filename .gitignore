@@ -4,3 +4,6 @@
 .Ruserdata
 *.bam
 *.bai
+.DS_Store
+.Rbuildignore
+.gitignore
