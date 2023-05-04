@@ -42,7 +42,7 @@ Please check the *examples* folder for Markdown files, or use the following link
 
 2.  [MitoTrace identifies personal variants in SMART-seq2 data data[2]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html)
 
-3.  [MitoTrace distinguishes different cell lines in 10X Genomics data data[3]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
+3.  [MitoTrace distinguishes different cell lines in 10X Genomics data[3]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-10X-Genomics-data.html)
 
 ## License
 
