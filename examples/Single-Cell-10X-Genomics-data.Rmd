@@ -1,7 +1,7 @@
 ---
-title: "MitoTrace works on single cell 10X genomics data"
+title: "MitoTrace distinguishes different cell lines in 10X Genomics data data"
 author: "Mingqiang Wang & Lukas Simon"
-date: "December 3, 2019"
+date: "April 3, 2023"
 output: html_document
 ---
 
@@ -9,14 +9,14 @@ In this analysis, we demonstrate that MitoTrace identifies germline mutations in
 
 Load R libraries
 ```{r message=FALSE}
-library(data.table)
-library(MitoTrace)
-library(ggplot2)
+library("data.table")
+library("MitoTrace")
+library("ggplot2")
 ```
 
 Read the BAM files, the bam file we used could be downloaded from here (https://ucsf.app.box.com/s/vg1bycvsjgyg63gkqsputprq5rxzjl6k) or (https://drive.google.com/open?id=1y3WnnLnjLf4ZMNkyiqIqPPWzKPpgnZDP). Please use samtools to re-index the bam file
 ```{r}
-bams <- list.files("../Data/McGinnisEtAl/bam_file", full.names = T, pattern = ".bam$")
+bams <- list.files("../../data/", full.names = T, pattern = ".bam$")
 ```
 
 Read the annotation files
