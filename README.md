@@ -1,3 +1,6 @@
+# Media Logo
+https://github.com/lkmklsmn/MitoTrace/blob/master/images/MitoTrace.png
+
 # MitoTrace
 Mitochondrial variation is linked to important biological functions and various human diseases. Recent progress in single-cell genomics has established single-cell RNA sequencing (scRNAseq) as a popular and powerful technique to profile transcriptomics at the cellular level. Here, we developed MitoTrace, an R package for the analysis of mitochondrial variation in scRNAseq data. This repository contains the R code for MitoTrace.
 
