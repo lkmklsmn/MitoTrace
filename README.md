@@ -2,7 +2,6 @@
   <img src="images/MitoTrace.png" width="50%"/>
 </p>
 
-# About
 MitoTrace, a user-friendly R package for the analysis of mitochondrial variation in next generation sequencing data. 
 
 ## Prerequisites
