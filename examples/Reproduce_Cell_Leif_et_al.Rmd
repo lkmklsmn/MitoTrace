@@ -17,7 +17,7 @@ library(circlize)
 Read the BAM files, the BAM files can be downloaded from [here](https://drive.google.com/open?id=1XaSzUukQkIj6SoItK0H6GNbsD7COLZCJ).
 ```{r}
 # bams <- list.files("../Data/LeifEtAl/bam_file", full.names = T, pattern = ".bam$")
-bams <- list.files("/Volumes/Seagate\ Backup\ Plus\ Drive/Stanford2023/02_MitoTrace_Bam/Leif/mitotrace_bam/bam_file", full.names = T, pattern = ".bam$")
+bams <- list.files("./MitoTrace/Leif/mitotrace_bam/bam_file", full.names = T, pattern = ".bam$")
 
 ```
 
