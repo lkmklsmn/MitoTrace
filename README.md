@@ -41,7 +41,7 @@ MitoTrace calculates allele frequency for each mitochondrial position
 
 Please check the *examples* folder for Markdown files, or use the following link to open.
 
-1.  [MitoTrace reproduces the heteroplamsy reported in Leif's lineage tracing study analysis[1]](https://htmlpreview.github.io/https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce_Cell_Leif_et_al.html)
+1.  [MitoTrace reproduces the heteroplamsy reported in Leif's lineage tracing study analysis[1]](https://htmlpreview.github.io?/https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Reproduce_Cell_Leif_et_al.html)
 
 2.  [MitoTrace identifies personal variants in SMART-seq2 data data[2]](https://htmlpreview.github.io/?https://github.com/lkmklsmn/MitoTrace/blob/master/examples/Single-Cell-SMART-SEQ2-data.html)
 
