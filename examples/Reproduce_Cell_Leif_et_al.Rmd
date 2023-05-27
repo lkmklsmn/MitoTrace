@@ -1,32 +1,30 @@
 ---
-title: "Reproduce results in figures 5H & 5I from Leif et al"
+title: "MitoTrace reproduces the heteroplamsy reported in Leif's lineage tracing study analysis"
 author: "Mingqiang Wang & Lukas Simon"
-date: "10 April 2023"
+date: "May 26, 2023"
 output: html_document
 ---
 
-In this analysis we will reproduce results in figures 5H & 5I from [Leif et al](https://www.cell.com/cell/pdf/S0092-8674(19)30055-8.pdf).
+In this analysis, we will reproduce the selected colony-specific mutations in donor 1 colonies, the results is shwon by heatmap and boxplot in figures 5H & 5I from [Leif et al](https://www.cell.com/cell/pdf/S0092-8674(19)30055-8.pdf).
 
-Load R libraries
+Load R related libraries into R environment.
 ```{r warning=FALSE, message=FALSE}
-library(MitoTrace)
-library(ComplexHeatmap)
-library(circlize)
+library("MitoTrace")
+library("ComplexHeatmap")
+library("circlize")
 ```
 
-Read the BAM files, the BAM files can be downloaded from [here](https://drive.google.com/open?id=1XaSzUukQkIj6SoItK0H6GNbsD7COLZCJ).
+Read the BAM files into R, the BAM files can be downloaded from [here](https://drive.google.com/open?id=1XaSzUukQkIj6SoItK0H6GNbsD7COLZCJ).
 ```{r}
-# bams <- list.files("../Data/LeifEtAl/bam_file", full.names = T, pattern = ".bam$")
-bams <- list.files("./MitoTrace/Leif/mitotrace_bam/bam_file", full.names = T, pattern = ".bam$")
-
+bams <- list.files("../Data/LeifEtAl/bam_file", full.names = T, pattern = ".bam$")
 ```
 
-Read the human GRCH38 Mitochondrial reference genome
+Read the human GRCH38 Mitochondrial reference genome into R.
 ```{r}
 fasta_loc <- "../Data/GRCH38_MT.fa"
 ```
 
-Read the sample lable file
+Read the sample label file
 ```{r}
 ann <- read.table("../Data/LeifEtAl/annotation_file/SRR_donors_list")
 ```
@@ -53,7 +51,7 @@ colnames(af01) <- na.omit(ann$V2[match(colnames(af), ann$V1)])
 donors <- unlist(lapply(colnames(af01), function(x) paste(strsplit(x, "_", fixed = T)[[1]][1:2], collapse = "_")))
 ```
 
-Boxplot to show the specific mutation site, figure 5I
+Boxplot to show the selected colony-specific mutations, as it's shown in Figure 5I
 ```{r}
 # plot first row
 par(mfrow = c(2,6))
@@ -86,9 +84,17 @@ cell_order <- read.csv("../Data/LeifEtAl/annotation_file/target_cell.csv", heade
 selected_mutation <- selected_mutation[, cell_order$V1]
 ```
 
-Generate the heapmap figure 5H
+Visulized the colony-specific mutations by heapmap, as it's shown in Figure 5H
 ```{r}
 col_fun = colorRamp2(c(0, 0.1, 0.2), c("white", "firebrick", "firebrick4"))
-Heatmap(as.matrix(selected_mutation), col= col_fun, name = "Allele\nFrequency",show_column_names = FALSE, cluster_columns = FALSE, cluster_rows = FALSE, column_title="Donor1 colonies", row_title = "Mitochondiral mutations")
+Heatmap(as.matrix(selected_mutation), 
+        col= col_fun, 
+        name = "Allele\nFrequency",
+        show_column_names = FALSE, 
+        cluster_columns = FALSE, 
+        cluster_rows = FALSE, 
+        column_title="Specific colonies", 
+        row_title = "Mitochondiral mutations",
+        row_names_gp = gpar(fontsize = 6))
 ```
 
