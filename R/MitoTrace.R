@@ -87,11 +87,11 @@ MitoTrace <- function(bam_list = bams,
     params <- ScanBamParam(tag = tag_name, which = which)
 
     if(is.null(barcodes)){
-      barcodes <- scanBam(bam_list, param = params)
-      good_barcodes <- names(which(table(barcodes[[1]][[1]][[1]]) > min_read))
+      barcodes_tmp <- scanBam(bam_list, param = params)
+      good_barcodes <- names(which(table(barcodes_tmp[[1]][[1]][[1]]) > min_read))
     }
     if(!is.null(barcodes)){
-      good_barcodes <- barcodes
+      good_barcodes <- barcodes[[1]]
     }
 
     # Run pileup command
